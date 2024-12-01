@@ -23,7 +23,12 @@ def convert_file_name(name: str) -> str:
 def get_cfg(section: str, key: str):
     parser = ConfigParser()
     parser.read('./config/config.ini', encoding='utf-8')
-    return dict(parser.items(section))[key]
+    config_value = dict(parser.items(section))[key]
+    if config_value:
+        return config_value
+    #如果是用git actions方式部署,部分敏感信息不适合填进config.ini文件并上传至代码仓库,此时可以从从环境变量取值作为兜底
+    #ConfigParser读写配置项是按小写来的,但linux环境变量又是大小写敏感的.这里把入参key做了大写转换
+    return os.environ[key.upper()]
 
 
 def get_latest_run_time():
