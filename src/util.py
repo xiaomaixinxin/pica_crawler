@@ -156,6 +156,10 @@ def init_db(db_path='./downloaded.db'):
     """
     初始化数据库，创建表格用于存储已下载的漫画 ID。
     """
+    #创建数据库文件的父目录
+    dir_path = os.path.dirname(db_path)
+    os.makedirs(dir_path, exist_ok=True)
+
     conn = sqlite3.connect(db_path)  # 连接到 SQLite 数据库，如果文件不存在，会自动创建
     cursor = conn.cursor()  # 获取一个游标对象
     
