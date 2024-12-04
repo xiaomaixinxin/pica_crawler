@@ -37,6 +37,7 @@ jobs:
           INTERVAL_TIME: 5
           #下载阶段是否输出细节信息
           DETAIL: True
+          CHANGE_FAVOURITE: True
         run: |
           python ./src/main.py
           git add ./data/downloaded.db
